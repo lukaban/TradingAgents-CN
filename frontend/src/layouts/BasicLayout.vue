@@ -10,7 +10,7 @@
         <div class="logo">
           <img src="/logo.svg" alt="TradingAgents-CN" />
           <span v-show="!appStore.sidebarCollapsed" class="logo-text">
-            TradingAgents-CN
+            ai股票分析
           </span>
         </div>
       </div>

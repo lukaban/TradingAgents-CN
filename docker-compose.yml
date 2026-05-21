@@ -31,6 +31,23 @@ services:
       TRADINGAGENTS_LOG_DIR: "/app/logs"
       TRADINGAGENTS_LOG_FILE: "/app/logs/tradingagents.log"
       # Docker专用数据库配置
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: "27017"
+      MONGODB_USERNAME: admin
+      MONGODB_PASSWORD: tradingagents123
+      MONGODB_DATABASE: tradingagents
+      MONGODB_AUTH_SOURCE: admin
+      MONGODB_URL: mongodb://admin:tradingagents123@mongodb:27017/tradingagents?authSource=admin
+      MONGO_URI: mongodb://admin:tradingagents123@mongodb:27017/tradingagents?authSource=admin
+      MONGO_DB: tradingagents
+      MONGODB_CONNECTION_STRING: mongodb://admin:tradingagents123@mongodb:27017/tradingagents?authSource=admin
+      MONGODB_DATABASE_NAME: tradingagents
+      USE_MONGODB_STORAGE: "true"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: tradingagents123
+      REDIS_DB: "0"
+      REDIS_URL: redis://:tradingagents123@redis:6379/0
       TRADINGAGENTS_MONGODB_URL: mongodb://admin:tradingagents123@mongodb:27017/tradingagents?authSource=admin
       TRADINGAGENTS_REDIS_URL: redis://:tradingagents123@redis:6379
       TRADINGAGENTS_CACHE_TYPE: redis
@@ -80,7 +97,7 @@ services:
     networks:
       - tradingagents-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -205,4 +222,3 @@ networks:
   tradingagents-network:
     driver: bridge
     name: tradingagents-network
-

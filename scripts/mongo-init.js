@@ -156,6 +156,49 @@ print('✓ 索引创建完成');
 
 print('\n插入初始数据...');
 
+// 创建默认管理员用户（前端登录提示使用：admin / admin123）
+db.users.updateOne(
+  { username: 'admin' },
+  {
+    $set: {
+      username: 'admin',
+      email: 'admin@tradingagents.cn',
+      hashed_password: '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',
+      is_active: true,
+      is_verified: true,
+      is_admin: true,
+      updated_at: new Date(),
+      preferences: {
+        default_market: 'A股',
+        default_depth: '3',
+        default_analysts: ['市场分析师', '基本面分析师'],
+        auto_refresh: true,
+        refresh_interval: 30,
+        ui_theme: 'light',
+        sidebar_width: 240,
+        language: 'zh-CN',
+        notifications_enabled: true,
+        email_notifications: false,
+        desktop_notifications: true,
+        analysis_complete_notification: true,
+        system_maintenance_notification: true
+      },
+      daily_quota: 10000,
+      concurrent_limit: 10,
+      total_analyses: 0,
+      successful_analyses: 0,
+      failed_analyses: 0,
+      favorite_stocks: []
+    },
+    $setOnInsert: {
+      created_at: new Date(),
+      last_login: null
+    }
+  },
+  { upsert: true }
+);
+print('✓ 默认管理员用户已创建/更新: admin / admin123');
+
 // 插入默认系统配置
 db.system_config.insertMany([
   {
